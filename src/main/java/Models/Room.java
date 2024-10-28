@@ -1,18 +1,29 @@
 package Models;
 
-import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "room")
+@Table(name = "Rooms")
 public class Room {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "room_id", updatable = false, nullable = false)
     private UUID room_id;
 
-    @Column(nullable = false)
-    private String room_code;
+    @Column(name = "room_code", nullable = false, unique = true)
+    private String room_code; // Code for the room (e.g., "R101")
+
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+    private List<Shelf> shelves; // One-to-many relationship with shelves
+
+    public Room() {}
+
+    public Room(String room_code) {
+        this.room_code = room_code;
+    }
 
 	public UUID getRoom_id() {
 		return room_id;
@@ -30,6 +41,13 @@ public class Room {
 		this.room_code = room_code;
 	}
 
-    // Getters and Setters
-}
+	public List<Shelf> getShelves() {
+		return shelves;
+	}
 
+	public void setShelves(List<Shelf> shelves) {
+		this.shelves = shelves;
+	}
+
+   
+}

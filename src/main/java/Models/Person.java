@@ -1,38 +1,49 @@
+/**
+ * 
+ */
 package Models;
+import java.util.UUID;
 
-
-import javax.persistence.MappedSuperclass;
 import javax.persistence.*;
+import javax.persistence.MappedSuperclass;
 
+/**
+ * Person - This is a super class that identify a person and it is an abstract class
+ */
 @MappedSuperclass
 public abstract class Person {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "person_id", updatable = false, nullable = false)
+	private UUID person_id;
+	
+	@Column(name = "first_name", nullable = false, length = 50)
+	private String first_name;
+	@Column(name = "last_name", nullable = false, length = 50)
+	private String last_name;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "gender")
+	private PersonGender gender;
+	
+	@Column(name = "phone_number", nullable = false, length = 15)
+	private String phone_number;
+	
+	public Person() {}
+	
+	 public Person(String first_name, String last_name, PersonGender gender, String phone_number) {
+	        this.first_name = first_name;
+	        this.last_name = last_name;
+	        this.gender = gender;
+	        this.phone_number = phone_number;
+	    }
 
-    private String person_id;
-    private String first_name;
-    private String last_name;
-    private String phone_number;
-    
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
-
-    public enum Gender {
-        MALE, FEMALE
-    }
-    public Person(String person_id, String first_name, String last_name, String phone_number, Gender gender) {
-        this.person_id = person_id;
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.phone_number = phone_number;
-        this.gender = gender;
-    }
-
- // Getters and Setters
-	public String getLast_name() {
-		return last_name;
+	public UUID getPerson_id() {
+		return person_id;
 	}
 
-	public void setLast_name(String last_name) {
-		this.last_name = last_name;
+	public void setPerson_id(UUID person_id) {
+		this.person_id = person_id;
 	}
 
 	public String getFirst_name() {
@@ -43,12 +54,20 @@ public abstract class Person {
 		this.first_name = first_name;
 	}
 
-	public String getPerson_id() {
-		return person_id;
+	public String getLast_name() {
+		return last_name;
 	}
 
-	public void setPerson_id(String person_id) {
-		this.person_id = person_id;
+	public void setLast_name(String last_name) {
+		this.last_name = last_name;
+	}
+
+	public PersonGender getGender() {
+		return gender;
+	}
+
+	public void setGender(PersonGender gender) {
+		this.gender = gender;
 	}
 
 	public String getPhone_number() {
@@ -58,6 +77,5 @@ public abstract class Person {
 	public void setPhone_number(String phone_number) {
 		this.phone_number = phone_number;
 	}
-
-    
+	 
 }

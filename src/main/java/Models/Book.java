@@ -1,41 +1,51 @@
 package Models;
 
-import javax.persistence.*;
-import java.util.Date;
 import java.util.UUID;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "book")
+@Table(name = "Books")
 public class Book {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "book_id", updatable = false, nullable = false)
     private UUID book_id;
 
-    @Column(nullable = false)
-    private String title;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "book_status", nullable = false)
+    private BookStatus book_status; // BORROWED, RESERVED, AVAILABLE
 
-    @Column(nullable = false)
-    private String ISBNCODE;
-
-    @Column(nullable = false)
-    private Date publication_year;
-
-    @Column(nullable = false)
-    private String publisher_name;
-
-    @Column(nullable = false)
+    @Column(name = "edition", nullable = false)
     private int edition;
 
-    @Enumerated(EnumType.STRING)
-    private BookStatus book_status;
+    @Column(name = "isbn_code", nullable = false, unique = true)
+    private String isbn_code;
+
+    @Column(name = "publication_year", nullable = false)
+    private int publication_year;
+
+    @Column(name = "publisher_name", nullable = false)
+    private String publisher_name;
 
     @ManyToOne
-    @JoinColumn(name = "shell_id")
-    private Shell shell;
+    @JoinColumn(name = "shelf_id", nullable = false)
+    private Shelf shelf; // Relationship to Shelf
 
-    public enum BookStatus {
-        BORROWED, RESERVED, AVAILABLE
+    @Column(name = "title", nullable = false)
+    private String title;
+
+    public Book() {}
+
+    public Book(String title, String isbn_code, int edition, int publication_year, 
+                String publisher_name, BookStatus book_status, Shelf shelf) {
+        this.title = title;
+        this.isbn_code = isbn_code;
+        this.edition = edition;
+        this.publication_year = publication_year;
+        this.publisher_name = publisher_name;
+        this.book_status = book_status;
+        this.shelf = shelf;
     }
 
 	public UUID getBook_id() {
@@ -46,27 +56,35 @@ public class Book {
 		this.book_id = book_id;
 	}
 
-	public String getTitle() {
-		return title;
+	public BookStatus getBook_status() {
+		return book_status;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setBook_status(BookStatus book_status) {
+		this.book_status = book_status;
 	}
 
-	public String getISBNCODE() {
-		return ISBNCODE;
+	public int getEdition() {
+		return edition;
 	}
 
-	public void setISBNCODE(String iSBNCODE) {
-		ISBNCODE = iSBNCODE;
+	public void setEdition(int edition) {
+		this.edition = edition;
 	}
 
-	public Date getPublication_year() {
+	public String getIsbn_code() {
+		return isbn_code;
+	}
+
+	public void setIsbn_code(String isbn_code) {
+		this.isbn_code = isbn_code;
+	}
+
+	public int getPublication_year() {
 		return publication_year;
 	}
 
-	public void setPublication_year(Date publication_year) {
+	public void setPublication_year(int publication_year) {
 		this.publication_year = publication_year;
 	}
 
@@ -78,30 +96,21 @@ public class Book {
 		this.publisher_name = publisher_name;
 	}
 
-	public int getEdition() {
-		return edition;
+	public Shelf getShelf() {
+		return shelf;
 	}
 
-	public void setEdition(int edition) {
-		this.edition = edition;
+	public void setShelf(Shelf shelf) {
+		this.shelf = shelf;
 	}
 
-	public BookStatus getBook_status() {
-		return book_status;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setBook_status(BookStatus book_status) {
-		this.book_status = book_status;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public Shell getShell() {
-		return shell;
-	}
-
-	public void setShell(Shell shell) {
-		this.shell = shell;
-	}
-
-    // Getters and Setters
+    
 }
-
