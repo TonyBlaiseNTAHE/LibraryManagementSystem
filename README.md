@@ -16,3 +16,10 @@
 - The librarian should have a way to assign the shelf to the room.
 - The librarian should have a way to check how many books are in a specific room.
 
+### Day 1 Goals:
+- Models creations
+- Defining relationship
+- Table creation
+- Mapping classes to the PostgreSQL database
+- Servlet creation
+- Implementing authentication attempts.
