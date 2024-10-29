@@ -170,3 +170,7 @@ The Borrower class tracks book borrowing transactions, managing details such as 
 - Borrower ↔ User: Each borrowing transaction is associated with a user.
 - Borrower ↔ Book: Each borrowing transaction references a specific book.
 
+### Achievements So Far
+- Successfully created the core data models, including **Person**, **User**, **Location**, **Membership**, **Book**, **Shelf**, **Room**, and **Borrower**.
+- Established relationships between the models, enabling effective data management and organization.
+- Completed the creation of PostgreSQL tables based on the defined models, ensuring data persistence and retrieval capabilities.
